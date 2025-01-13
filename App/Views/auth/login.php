@@ -1,10 +1,17 @@
 <?php
 
   require_once "../../../vendor/autoload.php";
-  use App\Controllers\Auth\AuthControllers;
+  use App\Controllers\Login\LoginController;
 use App\Controllers\Register\RegisterController;
 
- 
+if(isset($_POST["submitSignIn"]))
+{
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+
+  $authController = new LoginController();
+  $authController->login($email, $password);
+}
   if(isset($_POST["registeruser"]))
   {
     $nomeregister = $_POST["nomeRegister"];
