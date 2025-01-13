@@ -15,7 +15,7 @@ use App\Controllers\Register\RegisterController;
     $confirmpasswordRegister = $_POST["confirm-passwordRegister"];
 
     $registerController = new RegisterController();
-    $registerController->Register($nameRegister ,$emailRegister,$passwordRegister,$confirmpasswordRegister,$roleRegister);
+    $registerController->Register($nomeregister ,$prenomeregister,$emailRegister,$roleRegister,$passwordRegister,$confirmpasswordRegister);
   }
 
 ?>
@@ -95,8 +95,8 @@ use App\Controllers\Register\RegisterController;
             <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
             <select id="role" name="roleRegister" required
               class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500 text-gray-900 focus:outline-none">
-              <option value="candidate">student</option>
-              <option value="recruiter">teacher</option>
+              <option value="student">student</option>
+              <option value="teacher">teacher</option>
             </select>
             </div>
 

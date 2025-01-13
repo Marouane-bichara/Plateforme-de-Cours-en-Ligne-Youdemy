@@ -5,16 +5,16 @@ namespace App\Controllers\Register;
 use App\Models\RegisterModel;
 
 class RegisterController{
-    public function Register($nameRegister , $emailRegister , $passwordRegister , $confirmpasswordRegister , $roleRegister)
+    public function Register($nomeregister ,$prenomeregister,$emailRegister,$roleRegister,$passwordRegister,$confirmpasswordRegister)
     {
         $registerModel = new RegisterModel();
-        $registerModel->registerUser($nameRegister,$emailRegister,$passwordRegister,$confirmpasswordRegister , $roleRegister);
+        $registerModel->registerUser($nomeregister ,$prenomeregister,$emailRegister,$roleRegister,$passwordRegister,$confirmpasswordRegister);
        
 
         if($registerModel== True)
         {
             $registerTheuser = new RegisterModel();
-            $registerTheuser->registerTheUser($nameRegister,$emailRegister,$passwordRegister,$roleRegister);
+            $registerTheuser->registerTheUser($nomeregister ,$prenomeregister,$emailRegister,$roleRegister,$passwordRegister);
         }
         
     }
