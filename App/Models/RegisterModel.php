@@ -14,12 +14,12 @@ class RegisterModel {
         $this->conn = $db->connection();    
     }
 
-    public function registerUser($nameRegister, $emailRegister, $passwordRegister, $confirmpasswordRegister) {
-        if (empty($nameRegister) || empty($emailRegister) || empty($passwordRegister) || empty($confirmpasswordRegister)) {
+    public function registerUser($nomeregister ,$prenomeregister,$emailRegister,$roleRegister,$passwordRegister,$confirmpasswordRegister) {
+        if (empty($nomeregister) ||empty($prenomeregister) || empty($emailRegister) || empty($roleRegister) || empty($passwordRegister)|| empty($confirmpasswordRegister)) {
             return "emptyInputs";
         }
-        if (!preg_match("/^[a-zA-Z- ]*$/", $nameRegister)) {
-            return "InvalidName";
+        if (!preg_match("/^[a-zA-Z- ]*$/", $nomeregister) || !preg_match("/^[a-zA-Z- ]*$/", $prenomeregister)) {
+            return "Invalid Name";
         }
         if (!filter_var($emailRegister, FILTER_VALIDATE_EMAIL)) {
             return "emailnotValid";
@@ -34,7 +34,7 @@ class RegisterModel {
         return true;
     }
 
-    public function registerTheUser($nameRegister, $emailRegister, $passwordRegister, $roleRegister) {
+    public function registerTheUser($nomeregister ,$prenomeregister,$emailRegister,$roleRegister,$passwordRegister) {
         $role = 0;
         if ($roleRegister === "student") {
             $role = 1;
@@ -48,7 +48,7 @@ class RegisterModel {
         {
             $validation = "suspended";
         }
-        
+
         $hashedPassword = password_hash($passwordRegister, PASSWORD_BCRYPT);
 
         $query = "INSERT INTO users (nome, prenome, `email`, `password`,`validation`, role_id)
@@ -57,10 +57,12 @@ class RegisterModel {
 
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":user_name", $nameRegister);
+        $stmt->bindParam(":nome", $nomeregister);
+        $stmt->bindParam(":prenome", $prenomeregister);
         $stmt->bindParam(":email", $emailRegister);
         $stmt->bindParam(":password", $hashedPassword);
-        $stmt->bindParam(":role", $role, PDO::PARAM_INT);
+        $stmt->bindParam(":validation", $validation);
+        $stmt->bindParam(":role_id", $role, PDO::PARAM_INT);
 
         try {
             $stmt->execute();
