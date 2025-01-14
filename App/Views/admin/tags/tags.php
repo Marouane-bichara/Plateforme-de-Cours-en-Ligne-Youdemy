@@ -1,3 +1,23 @@
+<?php
+
+use App\Controllers\Tags\GetTagsController;
+
+  require_once "../../../../vendor/autoload.php";
+
+    session_start();
+
+
+    if ((!isset($_SESSION["idAdmin"]) && !isset($_SESSION["nameAdmin"]) && $_SESSION["nameAdmin"] != "admin")) {
+      header("Location: ../../auth/login.php");
+        exit();
+      }
+
+      $getTags = new GetTagsController();
+      $tags = $getTags->getTagsController();
+
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +52,7 @@
       </div>
       <nav class="mt-6">
         <a href="../home.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
-        <a href="./courses/index.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-book mr-2"></i>Courses</a>
+        <a href="../courses/courses.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-book mr-2"></i>Courses</a>
         <a href="../category/category.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-list-alt mr-2"></i>Categories</a>
         <a href="./tags.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-tags mr-2"></i>Tags</a>
         <a href="../users/users.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-users mr-2"></i>Users</a>
@@ -48,7 +68,7 @@
     <div id="mobileSidebar" class="bg-gray-800 text-white w-64 p-4 hidden">
       <nav>
         <a href="../home.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
-        <a href="./courses/index.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-book mr-2"></i>Courses</a>
+        <a href="../courses/courses.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-book mr-2"></i>Courses</a>
         <a href="../category/category.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-list-alt mr-2"></i>Categories</a>
         <a href="./tags/index.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-tags mr-2"></i>Tags</a>
         <a href="../users/users.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-users mr-2"></i>Users</a>
@@ -71,12 +91,6 @@
                 <h2 class="text-lg font-semibold text-gray-700"><?php echo htmlspecialchars($tag['name']); ?></h2>
 
                 <div class="flex space-x-2">
-                  <form method="POST" action="./edit.php">
-                    <input type="hidden" name="idTag" value="<?php echo htmlspecialchars($tag['id']); ?>">
-                    <button type="submit" class="text-yellow-500 hover:text-yellow-700">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                  </form>
                   <form method="POST" action="./delete.php" onsubmit="return confirm('Are you sure you want to delete this tag?');">
                     <input type="hidden" name="idTag" value="<?php echo htmlspecialchars($tag['id']); ?>">
                     <button type="submit" class="text-red-500 hover:text-red-700">

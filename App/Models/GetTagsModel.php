@@ -14,7 +14,7 @@ use PDO;
        
         public function getTagsmodal()
         {
-            $query = "SELECT * from course";
+            $query = "SELECT * from tags";
 
             $stmt = $this->conn->prepare($query);
             $stmt->execute();

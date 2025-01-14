@@ -3,7 +3,7 @@ namespace App\Controllers\Tags;
 use App\Models\GetTagsModel;
 
     class GetTagsController{
-        public function getCategoriesController(){
+        public function getTagsController(){
             $TagsModal = new GetTagsModel();
             $Tags = $TagsModal->getTagsmodal();
             return $Tags;
