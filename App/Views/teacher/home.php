@@ -3,6 +3,8 @@
 
 use App\Controllers\Tags\GetTagsController;
 use App\Controllers\Category\GetCategoryController;
+use App\Controllers\Courses\GetCoursesController;
+
 
   require_once "../../../vendor/autoload.php";
 
@@ -23,6 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
 $getCategories = new GetCategoryController();
 $categories = $getCategories->getCategoriesController();
 
+
+$countCourses = new GetCoursesController();
+$numberOfCourses = $countCourses->numberofCourses();
 
 
 $getTags = new GetTagsController();
@@ -90,7 +95,7 @@ $tags = $getTags->getTagsController();
   <div class="bg-blue-600 text-white rounded-lg shadow-md p-6">
     <h3 class="text-lg font-bold">Total Courses</h3>
     <p class="text-4xl font-extrabold mt-2">
-      <?php echo isset($totalCourses) && $totalCourses !== '' ? $totalCourses : 0; ?>
+      <?php echo isset($numberOfCourses) && $numberOfCourses !== '' ? $numberOfCourses : 0; ?>
     </p>
   </div>
   <div class="bg-green-600 text-white rounded-lg shadow-md p-6">
@@ -131,7 +136,7 @@ $tags = $getTags->getTagsController();
   <div id="course-modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
         <h3 class="text-2xl font-bold text-gray-800 mb-4">Add New Course</h3>
-        <form action="your_php_script_here.php" method="POST">
+        <form action="./createCourse.php" method="POST">
             <div class="mb-4">
                 <label for="course-title" class="block text-gray-700">Course Title</label>
                 <input type="text" id="course-title" name="course_title" class="w-full p-3 mt-2 border border-gray-300 rounded-lg" required />
@@ -157,19 +162,23 @@ $tags = $getTags->getTagsController();
                 </select>
             </div>
             <div class="mb-4">
-                <label for="tags" class="block text-gray-700">Select Tags</label>
-                <div id="tags-container">
-                    <!-- Dynamically added tags will appear here -->
-                </div>
-                <select id="tags" name="tags[]" class="w-full p-3 mt-2 border border-gray-300 rounded-lg">
-                    <?php 
-                        foreach ($tags as $tag) {
-                            echo "<option value='" . $tag['id'] . "'>" . $tag['name'] . "</option>";
-                        }
-                    ?>
-                </select>
-                <button type="button" id="add-tag" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg">Add Tag</button>
-            </div>
+    <label for="tags" class="block text-gray-700">Select Tags</label>
+    <div id="tags-container">
+
+  </div>
+  <div class="form-group overflow-auto">
+    <label for="tags" class="block text-gray-700 font-semibold">Tags</label>
+    <div id="tags" class="checkbox-group space-y-2 overflow-auto mt-2">
+        <?php foreach ($tags as $tag): ?>
+            <label class="inline-flex items-center space-x-2">
+                <input name="tags[]" type="checkbox" value="<?= $tag['id'] ?>" class="form-checkbox text-blue-600">
+                <span class="text-gray-800"><?= $tag['name'] ?></span>
+            </label>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+    </div>
             <div class="flex justify-end">
                 <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md">Add Course</button>
             </div>
@@ -177,6 +186,9 @@ $tags = $getTags->getTagsController();
         <button id="close-modal" class="absolute top-2 right-2 text-gray-600">X</button>
     </div>
 </div>
+
+
+
 
 
 
@@ -206,35 +218,11 @@ $tags = $getTags->getTagsController();
       mobileMenu.classList.toggle('hidden');
     });
 
-    document.getElementById('add-tag').addEventListener('click', function() {
-    const tagSelect = document.getElementById('tags');
-    const selectedTagId = tagSelect.value;
-    const selectedTagName = tagSelect.options[tagSelect.selectedIndex].text;
-
-    if (selectedTagId && selectedTagName) {
-        const tagContainer = document.getElementById('tags-container');
-        const tagButton = document.createElement('button');
-        tagButton.textContent = selectedTagName;
-        tagButton.setAttribute('data-tag-id', selectedTagId);
-        tagButton.classList.add('tag-button', 'bg-blue-600', 'text-white', 'px-4', 'py-2', 'rounded-lg', 'mr-2', 'mt-2');
-        
-        const removeButton = document.createElement('span');
-        removeButton.textContent = ' X';
-        removeButton.classList.add('text-red-500', 'cursor-pointer');
-        removeButton.addEventListener('click', function() {
-            tagContainer.removeChild(tagButton);
-        });
-        
-        tagButton.appendChild(removeButton);
-        tagContainer.appendChild(tagButton);
-        
-        tagSelect.value = '';
-    }
-});
 
 
     
   </script>
+  <script src="../../scripts/tags.js"></script>
 
 </body>
 </html>
