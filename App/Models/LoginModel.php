@@ -44,7 +44,7 @@ class LoginModel{
         if (!$row) {
             return null;
         }
-    
+     
         if (!password_verify($password, $row['password'])) {
             return null;
         } else {
@@ -53,10 +53,10 @@ class LoginModel{
                 $_SESSION["idStudent"] = $row["role_id"];
             }
             if ($row["role"] == "teacher") {
-                $_SESSION["nameTeacher"] = $row["role"];
-                $_SESSION["idTeacher"] = $row["role_id"];
-                $_SESSION["validationTeacher"] = $row["validation"];
-            }
+              $_SESSION["nameTeacher"] = $row["role"];
+              $_SESSION["idTeacher"] = $row["role_id"];
+              $_SESSION["validationTeacher"] = $row["validation"];
+          }
             if ($row["role"] == "admin") {
                 $_SESSION["nameAdmin"] = $row["role"];
                 $_SESSION["idAdmin"] = $row["role_id"];
