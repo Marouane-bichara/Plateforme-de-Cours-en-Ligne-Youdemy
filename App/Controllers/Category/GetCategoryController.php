@@ -1,8 +1,11 @@
 <?php
 namespace App\Controllers\Category;
 use App\Models\GetCategoryModel;
+use App\Controllers\AbstractClass\CategoryAbstract;
 
-    class GetCategoryController{
+
+
+    class GetCategoryController extends CategoryAbstract{
         public function getCategoriesController(){
             $categoryModal = new GetCategoryModel();
             $categories = $categoryModal->getcategoriesmodal();
@@ -15,5 +18,7 @@ use App\Models\GetCategoryModel;
             $categoriesNums = $categoryModalnum->getNumberOfCategories();
             return $categoriesNums;
         }
+         public function addCatergory(){}
+         public function deleteCategoryController($id){}
     }
 ?>

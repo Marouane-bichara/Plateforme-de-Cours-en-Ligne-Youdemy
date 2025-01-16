@@ -9,7 +9,7 @@ class AddCategoryModel{
     private $conn;
 
     public function __construct() {
-        $db = new Dbh();
+        $db = new Dbh();    
         $this->conn = $db->connection();    
     }
 
