@@ -17,7 +17,7 @@ $coursesFetch = new GetTechaerCoursesController();
 $courses = $coursesFetch->getCourses();
 
 $getCategories = new GetCategoryController();
-$categories = $getCategories->getCategoriesController();
+$categoriess = $getCategories->getCategoriesController();
 
 $countCourses = new GetCoursesController();
 $numberOfCourses = $countCourses->numberofCourses();
@@ -35,13 +35,6 @@ $all_tags = $getTags->getTagsController();
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const menuToggle = document.getElementById("menu-toggle");
-      const mobileMenu = document.getElementById("mobile-menu");
-
-      menuToggle.addEventListener("click", function() {
-        mobileMenu.classList.toggle("hidden"); 
-      });
-
       const openModalButtons = document.querySelectorAll('.open-modal');
       const modal = document.getElementById('course-modal');
       const closeModalButton = document.getElementById('close-modal');
@@ -56,17 +49,19 @@ $all_tags = $getTags->getTagsController();
           const courseCategory = this.getAttribute('data-course-category');
           const courseTags = this.getAttribute('data-course-tags').split(',');
 
+          // Populate modal inputs
           document.getElementById('course-title-input').value = courseTitle;
           document.getElementById('course-description-input').value = courseDescription;
           document.getElementById('course-content-input').value = courseContent;
           document.getElementById('course-id-input').value = courseId;
-
           document.getElementById('category-select').value = courseCategory;
 
+          // Handle tags checkboxes
           document.querySelectorAll('.tag-checkbox').forEach(checkbox => {
             checkbox.checked = courseTags.includes(checkbox.value);
           });
 
+          // Open modal
           modal.classList.remove('hidden');
         });
       });
@@ -111,7 +106,6 @@ $all_tags = $getTags->getTagsController();
     <div class="text-center mb-8">
       <h1 class="text-3xl font-semibold">My Courses</h1>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <?php foreach ($courses as $course): ?>
         <div class="bg-white rounded-lg shadow-lg p-6">
@@ -180,8 +174,10 @@ $all_tags = $getTags->getTagsController();
             <div class="mb-4">
                 <label for="category-select" class="block text-gray-700">Category</label>
                 <select id="category-select" name="category_id" class="w-full p-3 mt-2 border border-gray-300 rounded-lg" required>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
+                    <?php foreach ($categoriess as $category): ?>
+                        <option value="<?= $category['id'] ?>" <?= $category['name'] == $course['category_name'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($category['name']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -190,7 +186,7 @@ $all_tags = $getTags->getTagsController();
                 <div id="tags" class="mt-2">
                     <?php foreach ($all_tags as $tag): ?>
                         <label class="inline-flex items-center space-x-2">
-                        <input name="tags[]" type="checkbox" value="<?= $tag['id'] ?>" class="form-checkbox text-blue-600">
+                        <input name="tags[]" type="checkbox" value="<?= $tag['id'] ?>" class="tag-checkbox form-checkbox text-blue-600" <?= in_array($tag['name'], $course_tags) ? 'checked' : '' ?>>
                         <span class="text-gray-800"><?= htmlspecialchars($tag['name']) ?></span>
                         </label>
                     <?php endforeach; ?>

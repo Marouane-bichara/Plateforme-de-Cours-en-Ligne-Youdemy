@@ -15,7 +15,7 @@ class GetCoursesOfTeacherModel extends AfficheCourses{
         $this->conn = $db->connection();    
     }
 
-    public function updateCourses(){}
+    public function updateCourses($id, $courseTitle , $courseDescription , $courseContent , $categoryId){}
 
 
     public function getCourses(){
