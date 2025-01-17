@@ -54,7 +54,7 @@ use App\Controllers\AbstractClass\AfficheCourses;
                 $stmt->bindParam(":tag_id", $tag_id);
                 $stmt->execute();
             }
-            header("Location:./course.php");
+            header("Location:./courses.php");
         }
     }
 ?>

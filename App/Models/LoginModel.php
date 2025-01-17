@@ -51,6 +51,7 @@ class LoginModel{
             if ($row["role"] == "student") {
                 $_SESSION["nameStudent"] = $row["role"];
                 $_SESSION["idStudent"] = $row["role_id"];
+                $_SESSION["validationStudent"] = $row["validation"];
                 $_SESSION["user_idStudent"] = $row["user_id"];
             }
             if ($row["role"] == "teacher") {
