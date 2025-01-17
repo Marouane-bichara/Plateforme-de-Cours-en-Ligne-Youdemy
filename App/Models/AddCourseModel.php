@@ -33,5 +33,6 @@ class AddCourseModel {
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$courseId, $tagId]);
         }
+        header("Location:./home.php");
     }
 }

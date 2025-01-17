@@ -2,11 +2,12 @@
   require_once "../../../vendor/autoload.php";
 
     session_start();
-    use App\Controllers\Logout\LogoutController;
-    use App\Controllers\Category\GetCategoryController;
-    use App\Controllers\Courses\GetCoursesController;
-    use App\Controllers\Tags\GetTagsController;
-    use App\Controllers\Users\GetUsersController;
+
+use App\Controllers\AuthUsers\AuthUsers;
+use App\Controllers\Category\CategoryCrud;
+use App\Controllers\Courses\CoursesCrud;
+use App\Controllers\Tags\TagsCrud;
+use App\Controllers\Users\GetUsersController;
 
     if ((!isset($_SESSION["idAdmin"]) && !isset($_SESSION["nameAdmin"]) && $_SESSION["nameAdmin"] != "admin")) {
       header("Location: ../auth/login.php");
@@ -14,21 +15,21 @@
       }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-        $logoutController = new LogoutController();
+        $logoutController = new AuthUsers();
         $logoutController->logoutController();
     }
 
 
-    $countcatgegory = new GetCategoryController();
+    $countcatgegory = new CategoryCrud();
     $numberOfCategories = $countcatgegory->numberofCategories();
 
-    $countCourses = new GetCoursesController();
+    $countCourses = new CoursesCrud();
     $numberOfCourses = $countCourses->numberofCourses();
 
     $countUsers = new GetUsersController();
     $numberOfUsers = $countUsers->numberofUsers();
 
-    $countTags = new GetTagsController();
+    $countTags = new TagsCrud();
     $numberOfTags = $countTags->numberofTags();
 ?>
 

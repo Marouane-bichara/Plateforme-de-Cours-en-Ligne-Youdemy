@@ -2,7 +2,8 @@
   require_once "../../../../vendor/autoload.php";
 
   session_start();
-  use App\Controllers\Logout\LogoutController;
+
+use App\Controllers\AuthUsers\AuthUsers;
   use App\Controllers\Users\GetUsersController;
 
   if ((!isset($_SESSION["idAdmin"]) && !isset($_SESSION["nameAdmin"]) && $_SESSION["nameAdmin"] != "admin")) {
@@ -11,7 +12,7 @@
   }
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-      $logoutController = new LogoutController();
+      $logoutController = new AuthUsers();
       $logoutController->logoutController();
   }
 
@@ -19,7 +20,7 @@
   $users = $countUsers->getUsersController();
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
