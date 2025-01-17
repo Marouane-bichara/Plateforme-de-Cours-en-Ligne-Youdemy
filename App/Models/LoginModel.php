@@ -19,7 +19,7 @@ class LoginModel{
         session_start();
     
         $query = "SELECT 
-                    users.id, 
+                    users.id as user_id, 
                     users.nome, 
                     users.prenome, 
                     users.email, 
@@ -51,15 +51,18 @@ class LoginModel{
             if ($row["role"] == "student") {
                 $_SESSION["nameStudent"] = $row["role"];
                 $_SESSION["idStudent"] = $row["role_id"];
+                $_SESSION["user_idStudent"] = $row["user_id"];
             }
             if ($row["role"] == "teacher") {
               $_SESSION["nameTeacher"] = $row["role"];
               $_SESSION["idTeacher"] = $row["role_id"];
               $_SESSION["validationTeacher"] = $row["validation"];
+              $_SESSION["user_idTeacher"] = $row["user_id"];
           }
             if ($row["role"] == "admin") {
                 $_SESSION["nameAdmin"] = $row["role"];
                 $_SESSION["idAdmin"] = $row["role_id"];
+                $_SESSION["user_idAdmin"] = $row["user_id"];
             }
     
             $role = new Role($row["role_id"], $row["role"]);

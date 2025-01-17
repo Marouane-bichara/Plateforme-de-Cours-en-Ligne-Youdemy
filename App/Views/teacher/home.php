@@ -1,36 +1,41 @@
 
 <?php
 
-use App\Controllers\Tags\GetTagsController;
-use App\Controllers\Category\GetCategoryController;
-use App\Controllers\Courses\GetCoursesController;
+use App\Controllers\AuthUsers\AuthUsers;
+use App\Controllers\Category\CategoryCrud;
+use App\Controllers\Courses\CoursesCrud;
+
 
 
   require_once "../../../vendor/autoload.php";
 
 use App\Controllers\Logout\LogoutController;
+use App\Controllers\Tags\TagsCrud;
+use App\Controllers\TeacherCourses\GetTechaerCoursesController;
+
 session_start();
+
 if ((!isset($_SESSION["idTeacher"]) || !isset($_SESSION["nameTeacher"]) || $_SESSION["nameTeacher"] != "teacher" || $_SESSION["validationTeacher"] != "active" )) {
   header("Location: ../auth/login.php");
   exit();
-}
+} 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-    $logoutController = new LogoutController();
+    $logoutController = new AuthUsers();
     $logoutController->logoutController();
 }
 
 
 
-$getCategories = new GetCategoryController();
+$getCategories = new CategoryCrud();
 $categories = $getCategories->getCategoriesController();
 
 
-$countCourses = new GetCoursesController();
-$numberOfCourses = $countCourses->numberofCourses();
+$countCourses = new GetTechaerCoursesController();
+$numberOfCourses = $countCourses->getNumberOFcourses();
 
 
-$getTags = new GetTagsController();
+$getTags = new TagsCrud();
 $tags = $getTags->getTagsController();
 ?>
 

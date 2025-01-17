@@ -1,6 +1,6 @@
 <?php
 
-use App\Controllers\Courses\EditCourseController;
+use App\Controllers\Courses\CoursesCrud;
 
 require_once "../../../../vendor/autoload.php";
 
@@ -19,7 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tags = $_POST['tags'];
         $teacherId = $_SESSION['idTeacher'];
 
-        new EditCourseController($courseId, $courseTitle, $courseDescription, $courseContent, $categoryId, $tags, $teacherId);
+        $editthecourse  = new CoursesCrud;
+        $editthecourse->editcourse($courseId, $courseTitle, $courseDescription, $courseContent, $categoryId, $tags, $teacherId);
+
     }
 }
 ?>

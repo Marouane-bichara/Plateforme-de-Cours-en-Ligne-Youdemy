@@ -1,7 +1,7 @@
 <?php
   require_once "../../../vendor/autoload.php";
 
-use App\Controllers\Courses\AddCoursesController;
+use App\Controllers\Courses\CoursesCrud;
 
 session_start(); 
 
@@ -13,10 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $courseContent = $_POST['course_content'];
     $categoryId = $_POST['category_id'];
     $tags = $_POST['tags'];
-    $teacherId = $_SESSION['idTeacher']; 
+    $teacherId = $_SESSION['user_idTeacher']; 
 
 
-    $courseController = new AddCoursesController();
+    $courseController = new CoursesCrud();
     $courseController->createCourse($courseTitle, $courseDescription, $courseContent, $categoryId, $teacherId, $tags);
 }
 ?>

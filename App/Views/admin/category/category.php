@@ -1,21 +1,18 @@
-
 <?php
 
-use App\Controllers\Category\GetCategoryController;
+use App\Controllers\Category\CategoryCrud;
 
-  require_once "../../../../vendor/autoload.php";
+require_once "../../../../vendor/autoload.php";
 
-    session_start();
+session_start();
 
+if ((!isset($_SESSION["idAdmin"]) && !isset($_SESSION["nameAdmin"]) && $_SESSION["nameAdmin"] != "admin")) {
+  header("Location: ../../auth/login.php");
+  exit();
+}
 
-    if ((!isset($_SESSION["idAdmin"]) && !isset($_SESSION["nameAdmin"]) && $_SESSION["nameAdmin"] != "admin")) {
-      header("Location: ../../auth/login.php");
-        exit();
-      }
-
-      $getCategories = new GetCategoryController();
-      $categories = $getCategories->getCategoriesController();
-
+$getCategories = new CategoryCrud();
+$categories = $getCategories->getCategoriesController();
 
 ?>
 <!DOCTYPE html>
@@ -32,12 +29,18 @@ use App\Controllers\Category\GetCategoryController;
       sidebar.classList.toggle("hidden");
     }
 
-    function openModal() {
+    function openAddCategoryModal() {
       document.getElementById("addCategoryModal").classList.remove("hidden");
     }
 
-    function closeModal() {
-      document.getElementById("addCategoryModal").classList.add("hidden");
+    function openEditCategoryModal(id, name) {
+      document.getElementById("editCategoryModal").classList.remove("hidden");
+      document.getElementById("editCategoryName").value = name;
+      document.getElementById("editCategoryId").value = id; // Set the category ID in the hidden field
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add("hidden");
     }
   </script>
 </head>
@@ -45,7 +48,7 @@ use App\Controllers\Category\GetCategoryController;
 
   <div class="flex h-screen">
 
-  <div class="bg-gray-800 text-white w-64 hidden md:block">
+    <div class="bg-gray-800 text-white w-64 hidden md:block">
       <div class="p-4 text-center">
         <h2 class="text-xl font-bold">Youdemy</h2>
       </div>
@@ -77,11 +80,10 @@ use App\Controllers\Category\GetCategoryController;
     <div class="flex-1 p-6">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-gray-700"><i class="fas fa-list-alt mr-2"></i>Manage Categories</h1>
-        <button onclick="openModal()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+        <button onclick="openAddCategoryModal()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
           <i class="fas fa-plus mr-2"></i>Add New
         </button>
       </div>
-
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <?php if (!empty($categories)): ?>
@@ -96,6 +98,11 @@ use App\Controllers\Category\GetCategoryController;
                     <i class="fas fa-trash"></i>
                   </button>
                 </form>
+
+                <!-- Edit Button -->
+                <button onclick="openEditCategoryModal(<?php echo $category['id']; ?>, '<?php echo htmlspecialchars($category['name']); ?>')" class="text-blue-500 hover:text-blue-700">
+                  <i class="fas fa-edit"></i>
+                </button>
               </div>
             </div>
           <?php endforeach; ?>
@@ -111,7 +118,23 @@ use App\Controllers\Category\GetCategoryController;
             <label class="block text-gray-700">Category Name</label>
             <input type="text" name="addCategory" class="w-full p-2 border rounded mt-2 mb-4" placeholder="Enter category name">
             <div class="flex justify-end">
-              <button type="button" onclick="closeModal()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 mr-2">Cancel</button>
+              <button type="button" onclick="closeModal('addCategoryModal')" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 mr-2">Cancel</button>
+              <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="editCategoryModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded shadow-lg w-96">
+          <h2 class="text-xl font-bold text-gray-700 mb-4">Edit Category</h2>
+          <form action="./edite.php" method="POST">
+            <input type="hidden" name="idCategory" id="editCategoryId">
+
+            <label class="block text-gray-700">Category Name</label>
+            <input type="text" name="editCategory" id="editCategoryName" class="w-full p-2 border rounded mt-2 mb-4" placeholder="Enter category name">
+            <div class="flex justify-end">
+              <button type="button" onclick="closeModal('editCategoryModal')" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 mr-2">Cancel</button>
               <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
             </div>
           </form>

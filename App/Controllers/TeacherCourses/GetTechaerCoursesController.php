@@ -2,6 +2,7 @@
 namespace App\Controllers\TeacherCourses;
 
 use App\Models\GetCoursesOfTeacherModel;
+use App\Models\NumberOfCoursesTeacher;
 
     class GetTechaerCoursesController {
 
@@ -10,6 +11,13 @@ use App\Models\GetCoursesOfTeacherModel;
             $coursesFetch = new GetCoursesOfTeacherModel();
             $courses = $coursesFetch->getCourses();
             return $courses;
+        }
+
+        public function getNumberOFcourses()
+        {
+            $numberOfcourses = new NumberOfCoursesTeacher();
+            $theNumber = $numberOfcourses->getNumberOfCourses();
+            return $theNumber;
         }
 
     }

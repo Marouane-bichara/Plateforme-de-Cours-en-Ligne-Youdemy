@@ -1,15 +1,16 @@
 <?php
 
   require_once "../../../vendor/autoload.php";
-  use App\Controllers\Login\LoginController;
-use App\Controllers\Register\RegisterController;
+
+use App\Controllers\AuthUsers\AuthUsers;
+
 
 if(isset($_POST["submitSignIn"]))
 {
   $email = $_POST["email"];
   $password = $_POST["password"];
 
-  $authController = new LoginController();
+  $authController = new AuthUsers();
   $authController->login($email, $password);
 }
   if(isset($_POST["registeruser"]))
@@ -21,7 +22,7 @@ if(isset($_POST["submitSignIn"]))
     $passwordRegister = $_POST["passwordRegister"];
     $confirmpasswordRegister = $_POST["confirm-passwordRegister"];
 
-    $registerController = new RegisterController();
+    $registerController = new AuthUsers();
     $registerController->Register($nomeregister ,$prenomeregister,$emailRegister,$roleRegister,$passwordRegister,$confirmpasswordRegister);
   }
 

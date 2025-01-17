@@ -1,9 +1,9 @@
 <?php
 
+use App\Controllers\Category\CategoryCrud;
 use App\Controllers\TeacherCourses\GetTechaerCoursesController;
-use App\Controllers\Tags\GetTagsController;
-use App\Controllers\Category\GetCategoryController;
-use App\Controllers\Courses\GetCoursesController;
+use App\Controllers\Courses\CoursesCrud;
+use App\Controllers\Tags\TagsCrud;
 
 require_once "../../../../vendor/autoload.php";
 
@@ -13,16 +13,18 @@ if ((!isset($_SESSION["idTeacher"]) || !isset($_SESSION["nameTeacher"]) || $_SES
   exit();
 }
 
+
+
 $coursesFetch = new GetTechaerCoursesController();
 $courses = $coursesFetch->getCourses();
 
-$getCategories = new GetCategoryController();
+$getCategories = new CategoryCrud();
 $categoriess = $getCategories->getCategoriesController();
 
-$countCourses = new GetCoursesController();
+$countCourses = new CoursesCrud();
 $numberOfCourses = $countCourses->numberofCourses();
 
-$getTags = new GetTagsController();
+$getTags = new TagsCrud();
 $all_tags = $getTags->getTagsController();
 ?>
 
@@ -48,7 +50,7 @@ $all_tags = $getTags->getTagsController();
           const courseContent = this.getAttribute('data-course-content');
           const courseCategory = this.getAttribute('data-course-category');
           const courseTags = this.getAttribute('data-course-tags').split(',');
-
+ 
           // Populate modal inputs
           document.getElementById('course-title-input').value = courseTitle;
           document.getElementById('course-description-input').value = courseDescription;
@@ -109,6 +111,7 @@ $all_tags = $getTags->getTagsController();
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <?php foreach ($courses as $course): ?>
         <div class="bg-white rounded-lg shadow-lg p-6">
+          <h2 class="text-xl font-semibold text-blue-600 mb-4">Course Statu: <?= htmlspecialchars($course['course_statu']) ?></h2>
           <h2 class="text-xl font-semibold text-blue-600 mb-4"><?= htmlspecialchars($course['course_title']) ?></h2>
           <p class="text-gray-700 mb-4"><?= htmlspecialchars($course['course_description']) ?></p>
           <div class="text-sm text-gray-600 mb-4">
@@ -144,6 +147,13 @@ $all_tags = $getTags->getTagsController();
                     data-course-tags="<?= htmlspecialchars($course['tags']) ?>"
                     >Edit</button>
           </div>
+
+          <form action="./delete.php" method="POST" class="mt-4">
+            <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>">
+            <button type="submit" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+              Delete
+            </button>
+          </form>
         </div>
       <?php endforeach; ?>
     </div>
