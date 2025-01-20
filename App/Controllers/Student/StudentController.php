@@ -45,4 +45,11 @@ class StudentController
         $studentCancel = new StudentModel();
         $studentCancel->cancelEnrollmentEtudian($idStudent, $course_id);
     }
+
+    public function getCourseWatch($idCourse)
+    {
+        $getCourse = new StudentModel();
+        $resault = $getCourse->getCourseForWatching($idCourse);
+        return $resault;
+    }
 }

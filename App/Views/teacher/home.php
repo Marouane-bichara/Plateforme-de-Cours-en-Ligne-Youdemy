@@ -3,13 +3,11 @@
 
 use App\Controllers\AuthUsers\AuthUsers;
 use App\Controllers\Category\CategoryCrud;
-use App\Controllers\Courses\CoursesCrud;
 
 
 
   require_once "../../../vendor/autoload.php";
 
-use App\Controllers\Logout\LogoutController;
 use App\Controllers\Tags\TagsCrud;
 use App\Controllers\TeacherCourses\GetTechaerCoursesController;
 
