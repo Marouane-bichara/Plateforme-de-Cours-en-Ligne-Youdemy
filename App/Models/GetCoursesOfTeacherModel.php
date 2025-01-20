@@ -37,7 +37,7 @@ class GetCoursesOfTeacherModel extends AfficheCourses{
     LEFT JOIN 
         tags ON tagsandcourse.tag_id = tags.id
     WHERE 
-        course.id_teacher = :idTeacher AND course.archive = 'active' or course.archive = 'suspended'
+        course.teacher_id = :idTeacher AND course.archive = 'active' or course.archive = 'suspended'
     GROUP BY 
         course.id, category.name";
     

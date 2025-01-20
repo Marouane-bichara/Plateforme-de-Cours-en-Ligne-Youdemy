@@ -14,9 +14,9 @@ use App\Config\Dbh;
     }
 
     public function getNumberOfCourses()
-    {
+    { 
         $idteacher = $_SESSION["user_idTeacher"];
-        $query = "SELECT count(title) FROM course where id_teacher = $idteacher";
+        $query = "SELECT count(title) FROM course where teacher_id = $idteacher";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
     

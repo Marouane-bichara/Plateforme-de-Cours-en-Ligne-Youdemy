@@ -17,7 +17,7 @@ class AddCourseModel {
 
 
     public function insertCourse($courseTitle, $courseDescription, $courseContent, $categoryId, $teacherId) {
-        $query = "INSERT INTO course (title, description, content, category_id,archive ,id_teacher) 
+        $query = "INSERT INTO course (title, description, content, category_id,archive ,teacher_id) 
                   VALUES (?, ?, ?, ?,?, ?)";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$courseTitle, $courseDescription, $courseContent, $categoryId,"active", $teacherId]);
