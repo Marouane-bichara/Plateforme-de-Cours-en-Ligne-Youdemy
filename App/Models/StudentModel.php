@@ -159,6 +159,38 @@
         return $result;
     }
 
+    public function searchByKeyWordModel($title)
+    {
+        $query = "SELECT 
+        course.id AS course_id,
+        course.title AS course_title,
+        course.description AS course_description,
+        course.content AS course_content,
+        course.archive AS course_statu,
+        category.name AS category_name,
+        GROUP_CONCAT(tags.name) AS tags
+    FROM 
+        course
+    JOIN 
+        category ON course.category_id = category.id
+    LEFT JOIN  
+        tagsandcourse ON course.id = tagsandcourse.course_id
+    LEFT JOIN 
+        tags ON tagsandcourse.tag_id = tags.id
+    WHERE 
+        course.archive = 'active' 
+        AND course.title LIKE :title
+    GROUP BY 
+        course.id, category.name";
+
+        $stmt = $this->conn->prepare($query);
+        $formattedTitle = "%" . $title . "%"; 
+        $stmt->bindParam(':title', $formattedTitle, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 
         public function updateCourses($id, $courseTitle , $courseDescription , $courseContent , $categoryId){}
     }

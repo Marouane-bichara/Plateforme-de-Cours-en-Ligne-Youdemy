@@ -2,6 +2,7 @@
 
 use App\Controllers\AuthUsers\AuthUsers;
 use App\Controllers\Student\StudentController;
+use App\Models\StudentModel;
 
 require_once "../../../vendor/autoload.php";
 
@@ -19,6 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
 $coursesFetche = new StudentController();
 $courses = $coursesFetche->affichageCourses();
 
+
+if($_SERVER["REQUEST_METHOD"] == "GET")
+{
+  if(isset($_GET["search"]))
+  {
+    $title = $_GET["search"];
+    $searchByKey = new StudentController();
+    $courses = $searchByKey->searchByKeyWord($title);
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +87,10 @@ $courses = $coursesFetche->affichageCourses();
       <h1 class="text-4xl font-semibold text-yellow-400">Explore Our Courses</h1>
       <p class="text-gray-400 mt-2">Find courses that fit your passion and goals</p>
     </div>
+    <form method="GET" class="mb-6 flex justify-center">
+      <input type="text" name="search" placeholder="Search courses..." value="" class="px-4 py-2 rounded-l-md bg-gray-700 text-white focus:outline-none">
+      <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-r-md">Search</button>
+    </form>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <?php foreach ($courses as $course): ?>
         <div class="bg-gray-700 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">

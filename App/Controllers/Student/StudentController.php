@@ -52,4 +52,10 @@ class StudentController
         $resault = $getCourse->getCourseForWatching($idCourse);
         return $resault;
     }
+    public function searchByKeyWord($title)
+    {
+        $searchforCourse = new StudentModel();
+        $resault = $searchforCourse->searchByKeyWordModel($title);
+        return $resault;
+    }
 }
