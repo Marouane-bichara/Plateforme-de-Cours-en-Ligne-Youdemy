@@ -16,7 +16,7 @@ use App\Config\Dbh;
     public function getNumberOfCourses()
     { 
         $idteacher = $_SESSION["user_idTeacher"];
-        $query = "SELECT count(title) FROM course where teacher_id = $idteacher";
+        $query = "SELECT count(title) FROM course where teacher_id = $idteacher and course.archive = 'active'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
     
