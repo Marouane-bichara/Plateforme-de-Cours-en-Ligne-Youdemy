@@ -49,6 +49,30 @@ class GetCoursesOfTeacherModel extends AfficheCourses{
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function getUsersEnrolled()
+    {
+        $idTeacher = $_SESSION['user_idTeacher'];
+    
+        $query = 'SELECT 
+                    users.prenome AS user_name, 
+                    users.nome AS second_name, 
+                    course.title AS course_title 
+                  FROM 
+                    enrollment
+                  JOIN 
+                    users ON enrollment.student_id = users.id
+                  JOIN 
+                    course ON enrollment.course_id = course.id
+                  WHERE 
+                    course.teacher_id = :idTeacher';
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':idTeacher', $idTeacher, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
 
 
 

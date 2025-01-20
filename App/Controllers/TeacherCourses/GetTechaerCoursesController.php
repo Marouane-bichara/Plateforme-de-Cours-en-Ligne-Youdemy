@@ -19,6 +19,12 @@ use App\Models\NumberOfCoursesTeacher;
             $theNumber = $numberOfcourses->getNumberOfCourses();
             return $theNumber;
         }
+        public function getUsersEnrollWithCourses()
+        {
+            $fetchCoursesEnrolled = new GetCoursesOfTeacherModel();
+            $resault = $fetchCoursesEnrolled->getUsersEnrolled();
+            return $resault;
+        }
 
     }
 

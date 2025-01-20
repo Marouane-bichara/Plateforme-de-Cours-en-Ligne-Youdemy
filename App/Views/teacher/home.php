@@ -53,6 +53,7 @@ $tags = $getTags->getTagsController();
       <h1 class="text-2xl font-bold text-blue-600">Youdemy</h1>
       <nav class="hidden md:flex space-x-6">
         <a href="./courses/courses.php" class="text-gray-700 hover:text-blue-600">My Courses</a>
+        <a href="./studentsEnrolled/studentsEnrolled.php" class="text-gray-700 hover:text-blue-600">Enrolled Courses</a>
         <form method="POST">
           <button type="submit" name="logout" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">
             Logout
@@ -69,6 +70,7 @@ $tags = $getTags->getTagsController();
     <nav id="mobile-menu" class="hidden bg-white shadow-md">
       <ul class="space-y-4 p-4">
         <li><a href="./courses/courses.php" class="block text-gray-700 hover:text-blue-600">My Courses</a></li>
+        <li><a href="./studentsEnrolled/studentsEnrolled.php" class="block text-gray-700 hover:text-blue-600">Enrolled Courses</a></li>
         <li>
           <form method="POST" class="mt-2">
             <button type="submit" name="logout" class="block py-2 px-4 rounded bg-red-600 hover:bg-red-700 text-white">
