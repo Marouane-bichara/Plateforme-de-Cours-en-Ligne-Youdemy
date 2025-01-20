@@ -15,7 +15,7 @@ use App\Models\NumberOfCoursesTeacher;
 
         public function getNumberOFcourses()
         {
-            $numberOfcourses = new NumberOfCoursesTeacher();
+            $numberOfcourses = new GetCoursesOfTeacherModel();
             $theNumber = $numberOfcourses->getNumberOfCourses();
             return $theNumber;
         }
@@ -23,6 +23,19 @@ use App\Models\NumberOfCoursesTeacher;
         {
             $fetchCoursesEnrolled = new GetCoursesOfTeacherModel();
             $resault = $fetchCoursesEnrolled->getUsersEnrolled();
+            return $resault;
+        }
+
+        public function numberOftotalStudentsEnrolled()
+        {
+            $fetchNumbeTOTAL = new GetCoursesOfTeacherModel();
+            $resault = $fetchNumbeTOTAL->totalStudentsEnrolled();
+            return $resault;
+        }
+        public function numberActiveCourses()
+        {
+            $numberactiveCoursesTeacher = new GetCoursesOfTeacherModel();
+            $resault = $numberactiveCoursesTeacher->numberActiveCoursesmodale();
             return $resault;
         }
 

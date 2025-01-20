@@ -28,9 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
 $getCategories = new CategoryCrud();
 $categories = $getCategories->getCategoriesController();
 
+$fetchNumberStudents = new GetTechaerCoursesController();
+$totalStudents = $fetchNumberStudents->numberOftotalStudentsEnrolled();
 
 $countCourses = new GetTechaerCoursesController();
 $numberOfCourses = $countCourses->getNumberOFcourses();
+
+$numberActiveCourses = new GetTechaerCoursesController();
+$activeCourses = $numberActiveCourses->numberActiveCourses();
 
 
 $getTags = new TagsCrud();
@@ -106,7 +111,7 @@ $tags = $getTags->getTagsController();
   <div class="bg-green-600 text-white rounded-lg shadow-md p-6">
     <h3 class="text-lg font-bold">Enrolled Students</h3>
     <p class="text-4xl font-extrabold mt-2">
-      <?php echo isset($totalStudents) && $totalStudents !== '' ? $totalStudents : 0; ?>
+      <?php echo isset($totalStudents["course_count"]) && $totalStudents["course_count"] !== '' ? $totalStudents["course_count"] : 0; ?>
     </p>
   </div>
   <div class="bg-yellow-500 text-white rounded-lg shadow-md p-6">
