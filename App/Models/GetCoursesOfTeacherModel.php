@@ -49,6 +49,67 @@ class GetCoursesOfTeacherModel extends AfficheCourses{
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function getUsersEnrolled()
+    {
+        $idTeacher = $_SESSION['user_idTeacher'];
+    
+        $query = 'SELECT 
+                    users.prenome AS user_name, 
+                    users.nome AS second_name, 
+                    course.title AS course_title 
+                  FROM 
+                    enrollment
+                  JOIN 
+                    users ON enrollment.student_id = users.id
+                  JOIN 
+                    course ON enrollment.course_id = course.id
+                  WHERE 
+                    course.teacher_id = :idTeacher';
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':idTeacher', $idTeacher, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function totalStudentsEnrolled()
+    {
+        $idTeacher = $_SESSION['user_idTeacher'];
+    
+        $query = "SELECT COUNT(course.title) AS course_count 
+        FROM course
+        JOIN enrollment ON course.id = enrollment.course_id
+        WHERE teacher_id = $idTeacher AND course.archive = 'active'";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;  
+    }
+
+    public function getNumberOfCourses()
+    { 
+        $idteacher = $_SESSION["user_idTeacher"];
+        $query = "SELECT count(title) FROM course where teacher_id = $idteacher and course.archive != 'deleted'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+    
+        $result = $stmt->fetchColumn();
+    
+        return $result;
+    }
+
+    public function numberActiveCoursesmodale()
+    {
+        $idteacher = $_SESSION["user_idTeacher"];
+        $query = "SELECT count(title) FROM course where teacher_id = $idteacher and course.archive = 'active'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+    
+        $result = $stmt->fetchColumn();
+    
+        return $result;
+    }
 
 
 
