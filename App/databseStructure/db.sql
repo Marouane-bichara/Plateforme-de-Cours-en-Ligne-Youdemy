@@ -29,8 +29,11 @@ CREATE TABLE course (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     content TEXT,
+    archive enum("active" , "suspend", "deleted"),
     category_id INT NOT NULL,
+    teacher_id int not null,
     FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (teacher_id) REFERENCES teacher_id(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tagsAndCourse (

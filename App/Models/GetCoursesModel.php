@@ -50,5 +50,18 @@ GROUP BY
         
             return $result;
         }
+        public function getTopThreeTeachers()
+        {
+            $query = "select users.nome as user_name , count(course.id) as total_courses
+                    from users
+                    JOIN course on course.teacher_id = users.id
+                    GROUP by users.nome
+                    ORDER by total_courses desc
+                    LIMIT 3;";
+                    $stmt = $this->conn->prepare($query);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    return $result;
+        }
     }
 ?>

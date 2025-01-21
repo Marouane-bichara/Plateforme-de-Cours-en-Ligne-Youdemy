@@ -52,6 +52,13 @@ class CoursesCrud {
         $archiveCourse = new ArchiveCourseModel();
         $archiveCourse->archiveTheCourse($course_id,$action);
     }
+
+    public function topTotalCoursesTeacchers()
+    {
+        $toptotal = new GetCoursesModel();
+        $resault = $toptotal->getTopThreeTeachers();
+        return $resault;
+    }
 }
 
 ?>
