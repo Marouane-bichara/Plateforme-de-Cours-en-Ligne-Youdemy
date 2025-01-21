@@ -26,6 +26,7 @@
       <h1 class="text-2xl font-bold text-blue-600 cursor-pointer">Youdemy</h1>
       <nav class="hidden md:flex gap-8">
         <a href="./index.php" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+        <a href="./catalogue.php" class="text-gray-700 hover:text-blue-600 font-medium">Catalogue</a>
         <a href="./about.php" class="text-gray-700 hover:text-blue-600 font-medium">About Us</a>
         <a href="./contact.php" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
       </nav>
@@ -48,6 +49,7 @@
       </div>
       <nav class="flex flex-col items-center space-y-6">
         <a href="./index.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">Home</a>
+        <a href="./catalogue.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">Catalogue</a>
         <a href="./about.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">About Us</a>
         <a href="./contact.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">Contact</a>
       </nav>

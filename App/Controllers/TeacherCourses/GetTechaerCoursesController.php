@@ -13,6 +13,9 @@ use App\Models\NumberOfCoursesTeacher;
             return $courses;
         }
 
+
+
+
         public function getNumberOFcourses()
         {
             $numberOfcourses = new GetCoursesOfTeacherModel();

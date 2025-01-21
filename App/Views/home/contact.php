@@ -37,6 +37,7 @@
     <h1 class="text-2xl font-bold text-blue-600 cursor-pointer">Youdemy</h1>
     <nav class="hidden md:flex gap-8">
       <a href="./index.php" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+      <a href="./catalogue.php" class="text-gray-700 hover:text-blue-600 font-medium">Catalogue</a>
       <a href="./about.php" class="text-gray-700 hover:text-blue-600 font-medium">About Us</a>
       <a href="./contact.php" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
     </nav>
@@ -48,7 +49,6 @@
   </div>
 </header>
 
-<!-- Mobile Menu -->
 <div id="mobile-menu" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 transform scale-0 opacity-0">
   <div class="bg-white w-72 h-72 rounded-xl shadow-lg overflow-hidden transform transition-all ease-in-out duration-500 flex flex-col justify-center items-center">
     <div class="flex justify-end w-full p-4">
@@ -60,6 +60,7 @@
     </div>
     <nav class="flex flex-col items-center space-y-6">
       <a href="./index.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">Home</a>
+      <a href="./catalogue.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">Catalogue</a>
       <a href="./about.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">About Us</a>
       <a href="./contact.php" class="text-gray-800 text-xl font-semibold hover:text-blue-600 transition-all duration-300">Contact</a>
     </nav>
