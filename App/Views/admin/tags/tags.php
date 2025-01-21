@@ -90,7 +90,7 @@ $tags = $getTags->getTagsController();
       </button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[75vh] overflow-y-scroll">
       <?php if (!empty($tags)): ?>
         <?php foreach ($tags as $tag): ?>
           <div class="bg-white p-4 rounded shadow hover:shadow-lg transition">
