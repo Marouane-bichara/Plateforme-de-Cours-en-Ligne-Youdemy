@@ -10,8 +10,8 @@ $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['p
 $offset = ($currentPage - 1) * $itemsPerPage;
 
 $coursesFetch = new StudentController();
-$totalCourses = $coursesFetch->countCourses(); 
-$courses = $coursesFetch->affichageCourses($offset, $itemsPerPage); 
+$courses = $coursesFetch->affichageCourses($offset, $itemsPerPage);
+ $totalCourses = count($courses); 
 $totalPages = ceil($totalCourses / $itemsPerPage);
 
 ?>
@@ -72,9 +72,7 @@ $totalPages = ceil($totalCourses / $itemsPerPage);
         <h2 class="text-xl font-semibold text-blue-600 mb-4">Course Status: <?= htmlspecialchars($course['course_statu']) ?></h2>
         <h2 class="text-xl font-semibold text-blue-600 mb-4"><?= htmlspecialchars($course['course_title']) ?></h2>
         <p class="text-gray-700 mb-4"><?= htmlspecialchars($course['course_description']) ?></p>
-        <div class="text-sm text-gray-600 mb-4">
-          <strong>Content: </strong><?= htmlspecialchars($course['course_content']) ?>
-        </div>
+
         <div class="mb-4">
           <h3 class="text-lg font-medium">Category:</h3>
           <ul class="list-none pl-0">

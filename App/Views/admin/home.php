@@ -1,7 +1,7 @@
 <?php
-  require_once "../../../vendor/autoload.php";
+require_once "../../../vendor/autoload.php";
 
-    session_start();
+session_start();
 
 use App\Controllers\AuthUsers\AuthUsers;
 use App\Controllers\Category\CategoryCrud;
@@ -9,30 +9,31 @@ use App\Controllers\Courses\CoursesCrud;
 use App\Controllers\Tags\TagsCrud;
 use App\Controllers\Users\GetUsersController;
 
-    if ((!isset($_SESSION["idAdmin"]) && !isset($_SESSION["nameAdmin"]) && $_SESSION["nameAdmin"] != "admin")) {
-      header("Location: ../auth/login.php");
-        exit();
-      }
+if ((!isset($_SESSION["idAdmin"]) && !isset($_SESSION["nameAdmin"]) && $_SESSION["nameAdmin"] != "admin")) {
+    header("Location: ../auth/login.php");
+    exit();
+}
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-        $logoutController = new AuthUsers();
-        $logoutController->logoutController();
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
+    $logoutController = new AuthUsers();
+    $logoutController->logoutController();
+}
 
+$topTotal = new CoursesCrud();
+$topTeachers = $topTotal->topTotalCoursesTeacchers();
 
-    $countcatgegory = new CategoryCrud();
-    $numberOfCategories = $countcatgegory->numberofCategories();
+$countcatgegory = new CategoryCrud();
+$numberOfCategories = $countcatgegory->numberofCategories();
 
-    $countCourses = new CoursesCrud();
-    $numberOfCourses = $countCourses->numberofCourses();
+$countCourses = new CoursesCrud();
+$numberOfCourses = $countCourses->numberofCourses();
 
-    $countUsers = new GetUsersController();
-    $numberOfUsers = $countUsers->numberofUsers();
+$countUsers = new GetUsersController();
+$numberOfUsers = $countUsers->numberofUsers();
 
-    $countTags = new TagsCrud();
-    $numberOfTags = $countTags->numberofTags();
+$countTags = new TagsCrud();
+$numberOfTags = $countTags->numberofTags();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +53,6 @@ use App\Controllers\Users\GetUsersController;
 <body class="bg-gray-100 font-sans">
 
   <div class="flex h-screen">
-
     <div class="bg-gray-800 text-white w-64 hidden md:block">
       <div class="p-4 text-center">
         <h2 class="text-xl font-bold">Youdemy</h2>
@@ -114,6 +114,22 @@ use App\Controllers\Users\GetUsersController;
           <h2 class="text-lg font-semibold text-gray-700"><i class="fas fa-tags mr-2"></i>Tags</h2>
           <p class="text-3xl font-bold text-gray-900"><?php echo $numberOfTags; ?></p>
         </div>
+      </div>
+
+      <div class="bg-white p-4 rounded shadow mt-6">
+        <h2 class="text-lg font-semibold text-gray-700"><i class="fas fa-chalkboard-teacher mr-2"></i>Top Teachers</h2>
+        <ul class="mt-4">
+          <?php if (!empty($topTeachers)) : ?>
+            <?php foreach ($topTeachers as $teacher) : ?>
+              <li class="flex justify-between py-2 border-b">
+                <span class="text-gray-700"><?php echo htmlspecialchars($teacher['user_name']); ?></span>
+                <span class="text-gray-900 font-bold"><?php echo htmlspecialchars($teacher['total_courses']); ?> courses</span>
+              </li>
+            <?php endforeach; ?>
+          <?php else : ?>
+            <li class="text-gray-500">No data available</li>
+          <?php endif; ?>
+        </ul>
       </div>
     </div>
   </div>
