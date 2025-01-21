@@ -31,10 +31,7 @@ $courses = $getCourses->getCoursesController();
   </script>
 </head>
 <body class="bg-gray-100 font-sans">
-  
-
   <div class="flex h-screen">
-
     <!-- Desktop Sidebar -->
     <div class="bg-gray-800 text-white w-64 hidden md:block">
       <div class="p-4 text-center">
@@ -72,7 +69,7 @@ $courses = $getCourses->getCoursesController();
         <h1 class="text-2xl font-semibold text-gray-700"><i class="fas fa-book mr-2"></i>Manage Courses</h1>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[75vh] overflow-y-scroll">
         <?php if (!empty($courses)): ?>
           <?php foreach ($courses as $course): ?>
             <div class="bg-white p-4 rounded shadow hover:shadow-lg transition">
@@ -83,45 +80,34 @@ $courses = $getCourses->getCoursesController();
               <p class="text-gray-600 mt-2"><strong>Category:</strong> <?php echo ($course['category_name']); ?></p>
               <p class="text-gray-600 mt-2"><strong>Tags:</strong> 
                 <?php
-
                 $tags = explode(',', $course['tags']);
-                  echo (implode(', ', $tags));
+                echo (implode(', ', $tags));
                 ?>
               </p>
-
-
               <div class="mt-4 space-x-2 flex">
-
-            <form method="POST" action="./update.php">
-                <input type="hidden" name="action" value="active">
-                <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
-                <button type="submit" name="active" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Active</button>
-              </form>
-
-
-              <form method="POST" action="./update.php">
-                <input type="hidden" name="action" value="suspended">
-                <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
-                <button type="submit" name="suspended" class="text-white bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded">Suspended</button>
-              </form>
-
-
-              <form method="POST" action="./update.php">
-                <input type="hidden" name="action" value="deleted">
-                <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
-                <button type="submit" name="deleted" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Delete</button>
-              </form>
+                <form method="POST" action="./update.php">
+                  <input type="hidden" name="action" value="active">
+                  <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
+                  <button type="submit" name="active" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Active</button>
+                </form>
+                <form method="POST" action="./update.php">
+                  <input type="hidden" name="action" value="suspended">
+                  <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
+                  <button type="submit" name="suspended" class="text-white bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded">Suspended</button>
+                </form>
+                <form method="POST" action="./update.php">
+                  <input type="hidden" name="action" value="deleted">
+                  <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
+                  <button type="submit" name="deleted" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Delete</button>
+                </form>
+              </div>
             </div>
-            </div>
-            
           <?php endforeach; ?>
         <?php else: ?>
           <p class="text-gray-600">No courses found.</p>
         <?php endif; ?>
       </div>
-
     </div>
   </div>
-
 </body>
 </html>

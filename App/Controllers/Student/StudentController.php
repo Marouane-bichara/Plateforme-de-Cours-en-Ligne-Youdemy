@@ -58,4 +58,11 @@ class StudentController
         $resault = $searchforCourse->searchByKeyWordModel($title);
         return $resault;
     }
+
+    public function countCourses()
+    {
+        $count = new StudentModel();
+        $resault = $count->countAlltheCourses();
+        return $resault;
+    }
 }

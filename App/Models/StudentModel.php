@@ -191,6 +191,15 @@
         return $result;
     }
 
+    public function countAlltheCourses()
+    {
+        $query = 'SELECT COUNT(*) from course where course.archive = "active"';
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;
+    }
+
 
         public function updateCourses($id, $courseTitle , $courseDescription , $courseContent , $categoryId){}
     }
