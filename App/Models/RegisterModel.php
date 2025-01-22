@@ -27,9 +27,8 @@ class RegisterModel {
         if ($passwordRegister !== $confirmpasswordRegister) {
             return "InvalidRepeatPassword";
         }
-        if($passwordRegister < 8)
-        {
-            return "Passowrd is to short";
+        if (strlen($passwordRegister) < 8) {
+            return "Password is too short";
         }
         return true;
     }
