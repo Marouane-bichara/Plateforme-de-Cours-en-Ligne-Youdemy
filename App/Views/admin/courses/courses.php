@@ -46,14 +46,12 @@ $courses = $getCourses->getCoursesController();
       </nav>
     </div>
 
-    <!-- Mobile Sidebar Button (Hamburger) -->
     <div class="md:hidden bg-gray-800 text-white p-4">
       <button id="menuToggle" class="block focus:outline-none" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
       </button>
     </div>
 
-    <!-- Mobile Sidebar -->
     <div id="mobileSidebar" class="bg-gray-800 text-white w-64 p-4 hidden">
       <nav>
         <a href="../home.php" class="block py-2.5 px-4 rounded hover:bg-gray-700"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
