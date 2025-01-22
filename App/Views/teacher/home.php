@@ -179,14 +179,15 @@ $tags = $getTags->getTagsController();
   </div>
   <div class="form-group overflow-auto">
     <label for="tags" class="block text-gray-700 font-semibold">Tags</label>
-    <div id="tags" class="checkbox-group space-y-2 overflow-auto mt-2">
-        <?php foreach ($tags as $tag): ?>
-            <label class="inline-flex items-center space-x-2">
-                <input name="tags[]" type="checkbox" value="<?= $tag['id'] ?>" class="form-checkbox text-blue-600">
-                <span class="text-gray-800"><?= $tag['name'] ?></span>
-            </label>
-        <?php endforeach; ?>
-    </div>
+    <div id="tags" class="checkbox-group mt-2 overflow-x-auto whitespace-nowrap">
+    <?php foreach ($tags as $tag): ?>
+        <label class="inline-flex items-center space-x-2 text-sm mr-4">
+            <input name="tags[]" type="checkbox" value="<?= $tag['id'] ?>" class="form-checkbox text-blue-600">
+            <span class="text-gray-800"><?= $tag['name'] ?></span>
+        </label>
+    <?php endforeach; ?>
+</div>
+
 </div>
 
     </div>
