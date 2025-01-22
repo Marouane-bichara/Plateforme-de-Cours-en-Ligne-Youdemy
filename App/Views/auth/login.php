@@ -4,6 +4,20 @@
 
 use App\Controllers\AuthUsers\AuthUsers;
 
+session_start();
+if(isset($_SESSION["user_idStudent"]))
+{
+  header("Location:../student/home.php");
+}
+if(isset($_SESSION["user_idTeacher"]))
+{
+  header("Location:../teacher/home.php");
+}
+if(isset($_SESSION["user_idAdmin"]))
+{
+  header("Location:../admin/home.php");
+}
+
 
 if(isset($_POST["submitSignIn"]))
 {
@@ -98,7 +112,7 @@ if(isset($_POST["submitSignIn"]))
           <input type="email" id="email" name="emailRegister" required
             class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500 text-gray-900 focus:outline-none">
         </div>
-
+ 
         <div>
             <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
             <select id="role" name="roleRegister" required
